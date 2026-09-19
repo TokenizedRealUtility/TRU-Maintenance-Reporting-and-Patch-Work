@@ -34,9 +34,9 @@ that already exist or introducing an accidental consensus change.
 ```text
 REAL / PATCH
 ────────────────────────────────────────────────────────────
-01  VarInt cursor                 CLOSED
-02  Token self-transfer           CLOSED
-06  RPC storage safety            CLOSED
+01  VarInt cursor                 PATCHED
+02  Token self-transfer           PATCHED
+06  RPC storage safety            PATCHED
 
 FALSE / OVERSTATED
 ────────────────────────────────────────────────────────────
