@@ -17,7 +17,7 @@ LOGGING-01C            PREPARED / STATIC VERIFIED   CURRENT
 
 `PEER-REDIAL-01B` closes the operational gap where a verified peer socket could disappear and remain absent until manual menu option 32 was used. The reconnect worker only considers endpoints already promoted by a valid TRU `VERSION` handshake, retains ban/abuse authority, avoids duplicate live-IP reconnects, uses bounded backoff/jitter, and exits cleanly during shutdown.
 
-Runtime proof on `gw878` included deliberately killing `137.184.68.43:21833` and observing the peer return in `getpeerinfo` without manual reconnect.
+Runtime proof on `TRU-Core Dev Box` included deliberately killing `137.184.68.43:21833 and all other Peers` and observing the peer return in `getpeerinfo` without manual reconnect.
 
 **Consensus change:** NO  
 **Wire-format change:** NO  
