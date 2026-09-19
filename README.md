@@ -3445,7 +3445,7 @@ Do not mislabel the contract outpoint as a Base58 address.
 
 Required closeout proof:
 
-base) gw878@gw878:~/NEW_TRU$ bash ./TRU_MS_01F_MULTISIG_ESCROW_RUNTIME_CLOSEOUT_READ_ONLY.sh
+TRU_MS_01F_MULTISIG_ESCROW_RUNTIME_CLOSEOUT_READ_ONLY.sh
 ============================================================
 TRU MS-01F   MULTISIG / ESCROW V1 RUNTIME CLOSEOUT
 READ-ONLY EVIDENCE HARNESS   NO SOURCE OR CHAIN MUTATION
@@ -3500,10 +3500,6 @@ Evidence file: /tmp/TRU_MS01F_CLOSEOUT_EVIDENCE.txt
 ============================================================
 MS01F_RUNTIME_CLOSEOUT=PENDING
 failures=0 pending=7
-
-Development may continue, but final runtime closeout is not yet proven.
-============================================================
-(base) gw878@gw878:~/NEW_TRU$ 
 
 ## MS-01 closeout definition
 
@@ -4775,7 +4771,7 @@ minimum safety gap enforcement.
 LOCAL AGENT DELIVERY SERIES
 AGENT-01A   Local HTTP Adapter Foundation   COMPLETE
 
-Runtime-proven on gw878.
+Runtime-proven on TRU-Core Dev Box.
 
 Properties:
 
@@ -5068,12 +5064,7 @@ host-key verification;
 key-based authentication;
 no password embedded in scripts.
 
-For the current Mac → gw878 development topology:
 
-replace manually entered ssh -N -L with a persistent private tunnel;
-macOS launchd may maintain the tunnel automatically;
-if outside the home LAN, use a private VPN/routable private address;
-do not expose 127.0.0.1:8645 through Cloudflare.
 FINAL WEB / UX ALIGNMENT
 UI-SWAP-01   Production Browser Contract   PENDING
 
@@ -5589,7 +5580,7 @@ NOW
  │     paired-status cleanup / remove Enter token when live
  │
  ├── AGENT-NET-01A
- │     automatic private Mac→gw878 tunnel for your development machine
+ │     automatic private TRU-Core Dev Box tunnel for your development machine
  │
  ├── PKG-01A
  │     portable-runtime audit
