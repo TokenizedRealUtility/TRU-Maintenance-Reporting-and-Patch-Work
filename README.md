@@ -1,4 +1,4 @@
-# TRU Core 0.05 — PoW Security Audit Patch Work
+# TRU Core 0.05 — PoWGrid Round 1 Audit Reconciliation & Remediation Plan
 
 **Updated:** September 19, 2026
 
@@ -51,19 +51,16 @@ ALREADY CLOSED
                                   reorganization/recovery
                                   architecture already present
 
-HARDENING — PATCHED
+HARDENING — PATCHED / RECOMPILED
 ────────────────────────────────────────────────────────────
-07  P2P incomplete-frame timeout  PATCHED
-09  VERSION handshake deadline    PATCHED / INSTALLED VERIFIED
-13  RPC auth input bound          PATCHED
-15  Log injection                 PATCHED
-
-HARDENING — REMAINING
-────────────────────────────────────────────────────────────
-04  Dust policy                   NEXT
-11  Evolution queue fairness      PENDING
-12  HTLC safety margin            PENDING
-14  Wallet secret memory          PENDING
+04  Dust policy                   CLOSED
+07  P2P incomplete-frame timeout  CLOSED
+09  VERSION handshake deadline    CLOSED
+11  Evolution queue fairness      CLOSED
+12  HTLC safety margin            CLOSED
+13  RPC auth input bound          CLOSED
+14  Wallet secret memory          CLOSED
+15  Log injection                 CLOSED
 
 DEFERRED CONSENSUS
 ────────────────────────────────────────────────────────────
@@ -514,28 +511,76 @@ REASON = EXISTING 08B REORG/RECOVERY ARCHITECTURE
 
 ---
 
-# REMAINING NON-CONSENSUS HARDENING
+# NON-CONSENSUS HARDENING CLOSEOUT
 
-Four hardening tracks remain before the audit reaches the
-consensus-upgrade stage:
+All non-consensus findings from the Round 1 audit have now been reconciled.
+
+The final hardening sequence completed:
 
 ```text
-04  Dust / tiny-output policy
-11  Living Token evolution queue fairness
-12  HTLC safety-margin policy
-14  Wallet secret-memory protection
+AUDIT-HARDENING-01C   Track 04   Standard-payment dust policy
+AUDIT-HARDENING-01D   Track 11   Evolution queue fairness / race guard
+AUDIT-HARDENING-01E   Track 12   HTLC safety-margin policy
+AUDIT-HARDENING-01F   Track 14   Wallet secret-memory page locking
 ```
 
-These will be handled independently enough that one security domain does
-not destabilize another.
+## Track 04 — Standard-Payment Dust Policy
 
-In particular:
+Track 04 was implemented as relay/mempool policy rather than a new block-consensus rule.
 
-* Track 04 belongs primarily at mempool/relay policy.
-* Track 11 affects the Living Token / VAH queue architecture.
-* Track 12 belongs primarily in the swap policy/coordinator layer.
-* Track 14 requires careful treatment of plaintext private-key lifetime
-  and must not be implemented as a superficial `memset()` patch.
+Ordinary spendable P2PKH outputs below the configured 546-atom dust boundary are rejected from normal mempool admission, while protocol-specific anchor/metadata paths retain their dedicated policy treatment.
+
+```text
+CONSENSUS_RULE_CHANGE=NO
+PROTOCOL_ANCHOR_POLICY_CHANGE=NO
+TRACK 04 = CLOSED
+```
+
+## Track 11 — Evolution Queue Fairness / Race Guard
+
+The existing bounded Living Token evolution queue was hardened with a per-token pending-anchor limit and synchronization around the queue read/modify/write operation.
+
+```text
+MAX_ANCHORS_PER_TOKEN = 8
+QUEUE_SCHEMA_CHANGE=NO
+TRACK 11 = CLOSED
+```
+
+This prevents one token lineage from occupying the entire pending queue and prevents concurrent queue writers from losing each other's updates.
+
+## Track 12 — HTLC Safety Margin
+
+Newly prepared TRU HTLCs now require a minimum safety interval between current chain median-time-past and refund eligibility.
+
+```text
+HTLC_MIN_SAFETY_MARGIN_SECONDS = 7200
+TRACK 12 = CLOSED
+```
+
+This is local HTLC creation/swap safety policy. It does not redefine base-chain consensus and does not replace the coordinator's responsibility to maintain safe asymmetric refund windows across two chains.
+
+## Track 14 — Wallet Secret Memory
+
+The existing encrypted-wallet secret session already zeroized plaintext secret material on lock/destruction. The hardening adds page locking for the live secret session so plaintext key material is not intentionally left pageable while the wallet is unlocked.
+
+The implementation fails closed if the requested memory locking cannot be established and does not change the wallet's persistent file format.
+
+```text
+WALLET_FORMAT_CHANGE=NO
+TRACK 14 = CLOSED
+```
+
+## Build closeout
+
+Following installation of the complete non-consensus hardening sequence, the updated source was successfully recompiled.
+
+This establishes the final source/build checkpoint before any consensus-changing work begins.
+
+```text
+NON_CONSENSUS_AUDIT_WORK=COMPLETE
+SOURCE_PATCHES=INSTALLED
+NATIVE_RECOMPILE=PASS
+```
 
 ---
 
@@ -592,36 +637,33 @@ maintenance packages.
 ```text
 15 ORIGINAL POWGRID TRACKS
           |
-          +-- 01 CLOSED
-          +-- 02 CLOSED
-          +-- 03 DEFERRED CONSENSUS
-          +-- 04 HARDENING REMAINS
-          +-- 05 DEFERRED CONSENSUS
-          +-- 06 CLOSED
-          +-- 07 PATCHED
-          +-- 08 CLOSED — EXISTING DEFENSE
-          +-- 09 PATCHED / INSTALLED VERIFIED
-          +-- 10 CLOSED — EXISTING ARCHITECTURE
-          +-- 11 HARDENING REMAINS
-          +-- 12 HARDENING REMAINS
-          +-- 13 PATCHED
-          +-- 14 HARDENING REMAINS
-          +-- 15 PATCHED
+          +-- 01 CLOSED — VarInt cursor
+          +-- 02 CLOSED — Token self-transfer
+          +-- 03 DEFERRED CONSENSUS — Difficulty retarget
+          +-- 04 CLOSED — Dust policy
+          +-- 05 DEFERRED CONSENSUS — CSV
+          +-- 06 CLOSED — RPC storage safety
+          +-- 07 CLOSED — Incomplete-frame deadline
+          +-- 08 CLOSED — Existing DER / Low-S defense
+          +-- 09 CLOSED — VERSION handshake deadline
+          +-- 10 CLOSED — Existing reorg/recovery architecture
+          +-- 11 CLOSED — Evolution queue fairness
+          +-- 12 CLOSED — HTLC safety margin
+          +-- 13 CLOSED — RPC auth input bound
+          +-- 14 CLOSED — Wallet secret memory
+          +-- 15 CLOSED — Log injection
 ```
 
 ## Current counts
 
 ```text
-REAL DEFECTS CLOSED                3
-HARDENING PATCHED                  4
-EXISTING DEFENSE / ALREADY CLOSED  2
-HARDENING REMAINING                4
-DEFERRED CONSENSUS                 2
-────────────────────────────────────
-TOTAL                              15
+NON-CONSENSUS TRACKS RECONCILED / CLOSED  13
+DEFERRED CONSENSUS TRACKS                  2
+────────────────────────────────────────────
+TOTAL                                     15
 ```
 
-The project is intentionally separating:
+The project has deliberately kept three categories separate:
 
 ```text
 security defect repair
@@ -631,41 +673,91 @@ defense-in-depth hardening
 consensus protocol change
 ```
 
-This prevents a security maintenance cycle from accidentally becoming an
-uncoordinated protocol fork.
+The first two stages are now complete. The remaining work is an explicit consensus upgrade.
 
-````
+---
 
-And the next engineering order is now much clearer:
+# NEXT PHASE — COORDINATED CONSENSUS RELEASE
+
+The remaining tracks are:
 
 ```text
-DONE
-  01 / 02 / 06
-  07 / 09 / 13 / 15
-  08 existing defense
-  10 existing architecture
+03  Difficulty retarget arithmetic
+05  OP_CHECKSEQUENCEVERIFY / CSV
+```
 
-          ↓
+Neither should be released as an ordinary maintenance hotfix.
 
-NEXT
-  04  Dust policy
+The deployment plan is:
 
-          ↓
-  11  Evolution queue fairness
+```text
+1. Freeze current consensus behavior into deterministic test vectors.
 
-          ↓
-  12  HTLC safety margin
+2. Implement Track 03 and Track 05 behind explicit activation rules.
 
-          ↓
-  14  Wallet secure memory
+3. Define and publish the exact activation mechanism and activation height.
 
-          ↓
+4. Build and publish compatible node/miner binaries before activation.
 
-NON-CONSENSUS AUDIT WORK COMPLETE
+5. Announce the upgrade to operators and miners with enough lead time to upgrade.
 
-          ↓
+6. Keep the old rules active until the announced activation boundary.
 
-CONSENSUS RELEASE
-  03  Difficulty retarget
-  05  CSV
-````
+7. Verify upgraded nodes agree before activation.
+
+8. Observe the activation block and the first post-activation difficulty/CSV cases.
+
+9. Verify peer agreement, mining, restart/recovery and chain-tip convergence.
+
+10. Publish the final consensus closeout record with source hashes,
+    release identifiers and activation evidence.
+```
+
+## Community notice
+
+The community should be notified **before** activation, not after it.
+
+The notice should clearly distinguish the current completed security-hardening work from the upcoming consensus release. It should state that the current chain remains on the existing consensus rules until the published activation boundary and that node/miner operators will need to upgrade before that boundary.
+
+A suggested announcement:
+
+> **TRU Core 0.05 Security Audit Update**
+>
+> The non-consensus remediation and hardening phase of the PoWGrid Round 1
+> security review is complete. All non-consensus tracks have been reconciled,
+> patched where required, and the resulting source has been successfully
+> recompiled.
+>
+> Two items remain: the difficulty-retarget correction and CSV support.
+> Both affect consensus and therefore will be released through a coordinated
+> network upgrade rather than as a normal maintenance patch.
+>
+> No consensus rule has changed yet.
+>
+> We will publish the new release, exact activation mechanism/boundary,
+> upgrade instructions and verification information before activation so
+> node and miner operators have time to upgrade.
+>
+> Existing nodes should continue operating normally until the consensus
+> release instructions are published.
+
+---
+
+# FINAL PRE-CONSENSUS CHECKPOINT
+
+```text
+AUDIT-REMEDIATION-01     01 / 02 / 06     COMPLETE
+AUDIT-HARDENING-01A      07 / 13 / 15     COMPLETE
+AUDIT-HARDENING-01B      09               COMPLETE
+AUDIT-HARDENING-01C      04               COMPLETE
+AUDIT-HARDENING-01D      11               COMPLETE
+AUDIT-HARDENING-01E      12               COMPLETE
+AUDIT-HARDENING-01F      14               COMPLETE
+
+EXISTING DEFENSE         08               CLOSED
+EXISTING ARCHITECTURE    10               CLOSED
+
+CONSENSUS RELEASE        03 / 05          NEXT
+```
+
+**Consensus has intentionally remained unchanged throughout the remediation and hardening phase.**
