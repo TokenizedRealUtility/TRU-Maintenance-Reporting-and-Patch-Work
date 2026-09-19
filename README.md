@@ -1,6 +1,6 @@
 **Updated: August 27, 2026** 
 
-## September 19, 2026 — Core maintenance addendum
+## September 19, 2026   Core maintenance addendum
 
 This addendum records the maintenance track completed after the earlier roadmap body. It does not replace the historical patch ordering below.
 
@@ -10,10 +10,10 @@ LOGGING-01A            CLOSED / RUNTIME VERIFIED
 LOGGING-01B            CLOSED / INCLUDED IN CORE 0.04
 PEER-REDIAL-01B        CLOSED / RUNTIME PROVEN
 TRU CORE               0.05
-LOGGING-01C            PREPARED / STATIC VERIFIED — CURRENT
+LOGGING-01C            PREPARED / STATIC VERIFIED   CURRENT
 ```
 
-### Core 0.05 — automatic verified-peer recovery
+### Core 0.05   automatic verified-peer recovery
 
 `PEER-REDIAL-01B` closes the operational gap where a verified peer socket could disappear and remain absent until manual menu option 32 was used. The reconnect worker only considers endpoints already promoted by a valid TRU `VERSION` handshake, retains ban/abuse authority, avoids duplicate live-IP reconnects, uses bounded backoff/jitter, and exits cleanly during shutdown.
 
@@ -24,7 +24,7 @@ Runtime proof on `gw878` included deliberately killing `137.184.68.43:21833` and
 **Chain reset:** NO  
 **Older Core P2P compatibility:** PRESERVED
 
-### LOGGING-01C — final planned logging architecture patch
+### LOGGING-01C   final planned logging architecture patch
 
 Current status: **PREPARED / STATIC VERIFIED.**
 
@@ -94,7 +94,7 @@ If those gates pass, **there is no additional planned logging patch in this main
 
 ---
 
-## 1. Patch 01 — Docker / Private-Config Containment — DONE
+## 1. Patch 01   Docker / Private-Config Containment   DONE
 
 - Secrets and private configuration excluded from Docker build context.
 - Clean public-config fallback.
@@ -103,7 +103,7 @@ If those gates pass, **there is no additional planned logging patch in this main
 
 ---
 
-## 2. Patch 02 — Monetary Overflow Hardening — DONE
+## 2. Patch 02   Monetary Overflow Hardening   DONE
 
 - Coinbase output bounds.
 - Checked coinbase-output summation.
@@ -115,7 +115,7 @@ If those gates pass, **there is no additional planned logging patch in this main
 
 ---
 
-## 3. Patch 03 — Transaction-ID Recomputation — DONE
+## 3. Patch 03   Transaction-ID Recomputation   DONE
 
 - Every block transaction ID recomputed from actual transaction content.
 - Claimed txid must match canonical txid.
@@ -124,7 +124,7 @@ If those gates pass, **there is no additional planned logging patch in this main
 
 ---
 
-## 4. Patch 04 — Fail-Closed Fork / Reorg Containment — DONE
+## 4. Patch 04   Fail-Closed Fork / Reorg Containment   DONE
 
 - Direct-tip-only active-chain acceptance.
 - Prevent P2P path from overwriting active chain.
@@ -135,7 +135,7 @@ If those gates pass, **there is no additional planned logging patch in this main
 
 ---
 
-## 5. Patch 05 — RPC / Website Gateway — APPLIED / SOFTWARE VALIDATED 
+## 5. Patch 05   RPC / Website Gateway   APPLIED / SOFTWARE VALIDATED 
 
 **Implementation:** `TRU_RPC_WEB_05_PRIVILEGED_RPC_AUTH_PUBLIC_GATEWAY_SITE_COMPAT_REBASED_EXACT_PINNED.sh`
 
@@ -229,7 +229,7 @@ Before Patch 05 is marked CLOSED, prove on the real GW runtime:
 
 ---
 
-## 6. Patch 06 — Authoritative Block-Acceptance Path — DONE
+## 6. Patch 06   Authoritative Block-Acceptance Path   DONE
 
 - `submitBlock()` is the sole public block-acceptance entry point.
 - `connectTipBlock()` made private.
@@ -241,7 +241,7 @@ Before Patch 05 is marked CLOSED, prove on the real GW runtime:
 
 ---
 
-## 7. Patch 07 — Candidate-Chain Ancestry — DONE
+## 7. Patch 07   Candidate-Chain Ancestry   DONE
 
 - Difficulty calculation follows candidate ancestry.
 - Median-Time-Past follows candidate ancestry.
@@ -254,7 +254,7 @@ Before Patch 05 is marked CLOSED, prove on the real GW runtime:
 
 # 8. Fork / Reorganization Work
 
-## 8A. Patch 08A — Bounded Side-Chain Scaffolding — DONE
+## 8A. Patch 08A   Bounded Side-Chain Scaffolding   DONE
 
 - Persistent alternate-branch index.
 - Known-parent side blocks accepted into bounded side storage.
@@ -270,9 +270,9 @@ Before Patch 05 is marked CLOSED, prove on the real GW runtime:
 
 ---
 
-## 8B. Patch 08B — Actual Safe Reorganization — DONE
+## 8B. Patch 08B   Actual Safe Reorganization   DONE
 
-### 08B.1 — Durable U4 Undo Journals — DONE
+### 08B.1   Durable U4 Undo Journals   DONE
 
 - Durable per-active-block undo journals.
 - Journal format `P08B1-U4`.
@@ -290,7 +290,7 @@ Before Patch 05 is marked CLOSED, prove on the real GW runtime:
 - Corrupt/mixed journal state fails closed.
 - Reorganization remains disabled.
 
-### 08B.2 — Authenticated Journal Reader + Safe Single-Tip Disconnect — DONE
+### 08B.2   Authenticated Journal Reader + Safe Single-Tip Disconnect   DONE
 
 - Authenticated `P08B1-U4` journal reader.
 - Exact POST-state required before disconnect.
@@ -309,7 +309,7 @@ Before Patch 05 is marked CLOSED, prove on the real GW runtime:
 
 **Runtime note:** the primitive compiles successfully but has not yet been exercised through real reorganization logic.
 
-### 08B.3 — Isolated Fork-Point Stateful Candidate Validation — DONE
+### 08B.3   Isolated Fork-Point Stateful Candidate Validation   DONE
 
 Current version: **08B.3 v3**
 
@@ -336,7 +336,7 @@ Current version: **08B.3 v3**
 - Actual branch promotion remains disabled.
 - `handleChainReorganization()` remains fail-closed.
 
-### 08B.3a — LevelDB Registry Lifetime / Lock Hardening — DONE
+### 08B.3a   LevelDB Registry Lifetime / Lock Hardening   DONE
 
 Completed:
 
@@ -351,7 +351,7 @@ Completed:
 - Consensus/reorg behavior remained unchanged.
 - Reorganization activation remained disabled.
 
-### 08B.3b — Sandbox Hygiene / Performance Hardening — DONE
+### 08B.3b   Sandbox Hygiene / Performance Hardening   DONE
 
 Completed:
 
@@ -373,7 +373,7 @@ Completed:
 - Sandbox rewind continues to use authenticated manual U4 journal restoration.
 - Sandbox database remains a **validation oracle**, not a directory that can simply be swapped into production.
 
-### 08B.3T — Controlled Runtime Test Hooks — DONE
+### 08B.3T   Controlled Runtime Test Hooks   DONE
 
 Test-only/debug functionality remains disabled by default.
 
@@ -409,11 +409,11 @@ Deferred negative tests still recorded for later regression/crash-suite coverage
 These deferred negatives do **not** enable reorganization and do not block the next manually gated executor stage.
 
 
-### 08B.4 — Crash-Safe Multi-Block Reorganization / Promotion — Done
+### 08B.4   Crash-Safe Multi-Block Reorganization / Promotion   Done
 
 Reorganization remains intentionally **DISABLED**.
 
-#### 08B.4A v2 — Durable Reorg State Machine + Full Preflight — DONE
+#### 08B.4A v2   Durable Reorg State Machine + Full Preflight   DONE
 
 Current rules version: `P08B4A-R2`
 
@@ -470,7 +470,7 @@ Runtime proof:
 - Corrupt marker produced exact fail-closed startup rejection.
 - Automatic reorganization remained disabled throughout.
 
-#### 08B.4A.1 — `saveChainState()` Durability / Lifetime Fix — DONE
+#### 08B.4A.1   `saveChainState()` Durability / Lifetime Fix   DONE
 
 Completed:
 
@@ -481,7 +481,7 @@ Completed:
 - Failed persistence leaves dirty state available for retry.
 - No asynchronous/detached chain-state persistence remains in this path.
 
-#### 08B.4A.1a v2 — Deterministic Shutdown / Scaling — DONE
+#### 08B.4A.1a v2   Deterministic Shutdown / Scaling   DONE
 
 Completed:
 
@@ -512,7 +512,7 @@ Known cleanup retained for later:
 - `saveHeightMappings()` remains O(height) and should be optimized.
 - Global `blockQueue` / `queueMutex` / `queueCond` should eventually become `Blockchain` members.
 
-#### 08B.4A.1b v3 — Signal-Safe CLI Wake + Unwind-Safe Shutdown — DONE
+#### 08B.4A.1b v3   Signal-Safe CLI Wake + Unwind-Safe Shutdown   DONE
 
 The original CLI shutdown bug was reproduced and closed.
 
@@ -580,7 +580,7 @@ Runtime validation:
 
 **08B.4A.1a / 08B.4A.1b deterministic shutdown and signal-safe CLI work are CLOSED.**
 
-#### 08B.4B — Controlled Multi-Block Reorg Executor — DONE
+#### 08B.4B   Controlled Multi-Block Reorg Executor   DONE
 
 **Implementation:** Patch 08B.4B.1 v2  
 **Runtime fault-test support:** Patch 08B.4B.1T v1  
@@ -908,7 +908,7 @@ This confirms the deterministic fault-injection surface compiled completely out 
 
 ---
 
-##### Runtime validation — successful multi-block reorganization
+##### Runtime validation   successful multi-block reorganization
 
 Validated against a preserved height-237 disposable fixture.
 
@@ -999,7 +999,7 @@ The following were explicitly runtime tested:
 
 ---
 
-##### Runtime validation — DISCONNECT_COMMITTED failure state
+##### Runtime validation   DISCONNECT_COMMITTED failure state
 
 Deterministic failure was injected immediately after the first authenticated disconnect.
 
@@ -1031,7 +1031,7 @@ No CLI/node operation was allowed.
 
 ---
 
-##### Runtime validation — CONNECT_PUBLISHED failure state
+##### Runtime validation   CONNECT_PUBLISHED failure state
 
 A second deterministic failure was injected after candidate connect 1.
 
@@ -1113,7 +1113,7 @@ Patch 08B.4B.1T v1:
 
 **08B.4C crash recovery is now the next reorganization stage.**
 
-#### 08B.4C — Crash Recovery for Multi-Block Reorganization — DONE
+#### 08B.4C   Crash Recovery for Multi-Block Reorganization   DONE
 
 Implemented and crash-tested.
 
@@ -1191,14 +1191,14 @@ Pinned 08B.4C.2 v2.2 source:
 
 ---
 
-#### 08B.4D — Production Reorg Activation / DoS Controls - DONE
+#### 08B.4D   Production Reorg Activation / DoS Controls - DONE
 
 Automatic/network fork promotion remains **DISABLED**.
 
 Production activation will not be considered until the remaining bounded-side-chain lifecycle and DoS controls are implemented and regression-tested.
 
 Planned order:
-##### 08B.4D.1 — Runtime Stale-Side Pruning — DONE
+##### 08B.4D.1   Runtime Stale-Side Pruning   DONE
 
 - Identify side blocks that can no longer participate in a valid bounded reorganization.
 
@@ -1234,7 +1234,7 @@ Planned order:
 **Status: CLOSED.**
 
 
-##### 08B.4D.2 — Work-Aware Side-Pool Admission / Eviction — DONE
+##### 08B.4D.2   Work-Aware Side-Pool Admission / Eviction   DONE
 
 - Prefer viable higher-work competing branches under bounded side-pool pressure.
 
@@ -1332,7 +1332,7 @@ Planned order:
 - Automatic/network reorganization remains DISABLED.
 
 
-##### 08B.4D.3 — Undo Journal Retention / Pruning — DONE
+##### 08B.4D.3   Undo Journal Retention / Pruning   DONE
 
 **Status: CLOSED / BUILD VALIDATED / RUNTIME BOUNDARY VALIDATED / `reorg:pending` SUPPRESSION VALIDATED**
 
@@ -1376,7 +1376,7 @@ Runtime boundary proof:
 
 ---
 
-##### 08B.4D.4 — Bounded Positive Candidate Validation Cache — DONE
+##### 08B.4D.4   Bounded Positive Candidate Validation Cache   DONE
 
 **Implementation:** 08B.4D.4 v1b  
 **Rules:** `P08B4D4-V1B`  
@@ -1426,7 +1426,7 @@ Mandatory checks that a cache HIT does **not** bypass:
 - final witness rebuild/equality;
 - normal fail-closed reorganization guards.
 
-Runtime proof — positive MISS → STORE → HIT:
+Runtime proof   positive MISS → STORE → HIT:
 
 - First preflight:
   - cache MISS: `1`
@@ -1443,7 +1443,7 @@ Runtime proof — positive MISS → STORE → HIT:
 - Logical LevelDB state remained byte-identical.
 - Original fixture and source remained unchanged.
 
-Runtime proof — same-tip LevelDB generation invalidation:
+Runtime proof   same-tip LevelDB generation invalidation:
 
 - First preflight produced a positive cache STORE.
 - A real authenticated `PREPARED` marker then created a same-tip LevelDB mutation without changing:
@@ -1457,7 +1457,7 @@ Runtime proof — same-tip LevelDB generation invalidation:
 - Exact durable delta was only the expected `reorg:pending` key.
 - This closed the stale-positive same-tip mutation hole.
 
-Runtime proof — missing required U4 fails before cache:
+Runtime proof   missing required U4 fails before cache:
 
 - One required active-tip U4 journal was deleted **offline from a disposable database only**.
 - Node still loaded exact active height `237`.
@@ -1478,7 +1478,7 @@ Deferred to 08B.4D.8 regression:
 
 ---
 
-##### 08B.4D.5 — Immutable-Only Negative Candidate Cache — DONE
+##### 08B.4D.5   Immutable-Only Negative Candidate Cache   DONE
 
 **Implementation:** 08B.4D.5 v1b  
 **Rules:** `P08B4D5-N1B`  
@@ -1526,7 +1526,7 @@ Explicitly **not cached**:
 - generic 08B.3 sandbox failure;
 - generic 08B.4A negative result.
 
-Runtime proof — immutable rejection STORE → HIT:
+Runtime proof   immutable rejection STORE → HIT:
 
 - PROD RPC path.
 - Authentic candidate header/PoW preserved.
@@ -1547,7 +1547,7 @@ Runtime proof — immutable rejection STORE → HIT:
 - Logical LevelDB state remained byte-identical.
 - Original fixture/source remained unchanged.
 
-Runtime proof — time-dependent rejection remains uncached:
+Runtime proof   time-dependent rejection remains uncached:
 
 - PROD RPC path.
 - A candidate was rebuilt with:
@@ -1576,7 +1576,7 @@ Runtime proof — time-dependent rejection remains uncached:
 
 ---
 
-##### 08B.4D.6 — Per-Source Candidate-Validation Budget — DONE
+##### 08B.4D.6   Per-Source Candidate-Validation Budget   DONE
 
 08B.4D.6 protects the expensive authenticated 08B.3 candidate sandbox from repeated work by a single untrusted source.
 
@@ -1649,7 +1649,7 @@ Completed runtime proofs:
 
 ---
 
-##### 08B.4D.7 — Global Expensive-Fork DoS Budget — DONE
+##### 08B.4D.7   Global Expensive-Fork DoS Budget   DONE
 
 08B.4D.7 adds a global aggregate limit over expensive authenticated candidate validation so an attacker cannot bypass the 4D.6 per-source budget simply by rotating source identities.
 
@@ -1711,7 +1711,7 @@ Completed runtime proofs:
 
 ---
 
-##### 08B.4D.8 — Final Regression / Crash / Adversarial Suite — DONE
+##### 08B.4D.8   Final Regression / Crash / Adversarial Suite   DONE
 
 Completed 4D.8 coverage:
 
@@ -1732,7 +1732,7 @@ Completed 4D.8 coverage:
   * U4 unchanged;
   * side markers unchanged.
 
-###### 4D.1 stale-side pruning regression — DONE
+###### 4D.1 stale-side pruning regression   DONE
 
 * H299 → H300 stale-side boundary replay passed.
 * `forkDepth=100` retained.
@@ -1743,7 +1743,7 @@ Completed 4D.8 coverage:
 * U4 journals preserved.
 * Automatic/network reorganization remained disabled.
 
-###### 4D.2 work-aware admission/eviction regression — DONE
+###### 4D.2 work-aware admission/eviction regression   DONE
 
 * Equal-work candidate rejection replay passed.
 * Strict-higher-work single-leaf replacement replay passed.
@@ -1752,7 +1752,7 @@ Completed 4D.8 coverage:
 * Active-chain and U4 state remained protected.
 * Automatic/network reorganization remained disabled.
 
-###### 4D.3 active U4 retention regression — DONE
+###### 4D.3 active U4 retention regression   DONE
 
 * Retention depth: `200`
 
@@ -1784,7 +1784,7 @@ Completed 4D.8 coverage:
 
 **4D.8 / 4D.3 replay set: DONE
 
-###### 4D.4 positive candidate-validation cache regression — DONE
+###### 4D.4 positive candidate-validation cache regression   DONE
 
 Completed:
 
@@ -1897,7 +1897,7 @@ These are regression/adversarial tests only. They do not reopen the completed 4D
 
 ---
 
-##### 08B.4D.9 — Production Activation Review — **IN PROGRESS**
+##### 08B.4D.9   Production Activation Review   **IN PROGRESS**
 
 08B.4D.9 began only after the complete 4D.8 regression suite closed.
 
@@ -1907,7 +1907,7 @@ Current production automatic/network reorganization state:
 
 **DISABLED**
 
-### 08B.4D.9 Step 1 — Activation-Surface Inventory — DONE
+### 08B.4D.9 Step 1   Activation-Surface Inventory   DONE
 
 Read-only review completed:
 
@@ -1926,7 +1926,7 @@ Read-only review completed:
 - Host runtime/recovery gates were OFF.
 - No source modification, build, runtime, or DB mutation occurred.
 
-### 08B.4D.9 Step 2 — Executor/API + Shutdown-Boundary Deep Dive — DONE
+### 08B.4D.9 Step 2   Executor/API + Shutdown-Boundary Deep Dive   DONE
 
 Confirmed:
 
@@ -1939,7 +1939,7 @@ Confirmed:
   - partial durable mutation requiring fail-stop + 4C recovery.
 - A winning branch already present at startup requires a separate deterministic startup-reconciliation stage; incoming-block activation alone is insufficient.
 
-### 08B.4D.9A — Production Gate + Fail-Stop Shutdown Plumbing — DONE
+### 08B.4D.9A   Production Gate + Fail-Stop Shutdown Plumbing   DONE
 
 **Status: APPLIED / FRESH DEV+PROD BUILD PASS / PROD CONTAINMENT PASS / AUTOMATIC ACTIVATION STILL NOT WIRED**
 
@@ -2003,7 +2003,7 @@ Protected functions remained unchanged during 9A:
 
 **08B.4D.9A is CLOSED.**
 
-### 08B.4D.9B — Incoming Strict-Winning Side-Tip Activation — DRY RUN / PAUSED BEFORE LIVE TEST
+### 08B.4D.9B   Incoming Strict-Winning Side-Tip Activation   DRY RUN / PAUSED BEFORE LIVE TEST
 
 Purpose:
 
@@ -2056,7 +2056,7 @@ Corrected 9B v1a policy:
 
 **Current 9B status:** corrected v1a dry-run is the next reviewed candidate, but live automatic activation testing is intentionally paused behind the token-U4 proof gate below.
 
-### Token Confirmed-State Containment + U4 Proof Gate Before Live 9B — CURRENT BLOCKER
+### Token Confirmed-State Containment + U4 Proof Gate Before Live 9B   CURRENT BLOCKER
 
 A deeper source trace performed while building the U4 runtime test found an active out-of-band RPC mutation path that must be closed first.
 
@@ -2104,7 +2104,7 @@ Required sequence before any live 9B automatic reorganization test:
 
 Static source review already indicates the active block-application path merges token state into `mainBatch`, after which U4 captures the final state batch. This runtime proof is required to verify that property end-to-end before automatic reorg activation.
 
-### 08B.4D.9B Shadow Mode — DONE
+### 08B.4D.9B Shadow Mode   DONE
 
 Before allowing a peer-triggered strict winner to persist PREPARED/execute automatically:
 
@@ -2122,7 +2122,7 @@ Before allowing a peer-triggered strict winner to persist PREPARED/execute autom
 - No `reorg:pending` write.
 - Use shadow results to validate real network behavior before live production activation.
 
-### 08B.4D.9C — Startup Reconciliation — DONE
+### 08B.4D.9C   Startup Reconciliation   DONE
 
 * Production automatic reorg remains **OFF by default** and requires the explicit 9A gate to be ARMED with the exact production activation value.
 * Startup reconciliation runs **after the fail-stop shutdown bridge is installed and before `node->setBlockchain()`, outbound peer connections, or the P2P listener**.
@@ -2151,7 +2151,7 @@ TRU_ENABLE_08B4D9_AUTOMATIC_REORG=I_ACCEPT_PRODUCTION_CHAINWORK_REORGANIZATION .
 
 ---
 
-## 9. Patch 09 — Integer Difficulty + Authoritative Chainwork — DONE
+## 9. Patch 09   Integer Difficulty + Authoritative Chainwork   DONE
 
 - Integer-only retarget.
 - Strict canonical compact targets.
@@ -2166,7 +2166,7 @@ TRU_ENABLE_08B4D9_AUTOMATIC_REORG=I_ACCEPT_PRODUCTION_CHAINWORK_REORGANIZATION .
 
 ---
 
-## 10. Patch 10 — Mempool + Transaction-Ingress Hardening — DONE
+## 10. Patch 10   Mempool + Transaction-Ingress Hardening   DONE
 
 - Canonical txid recomputation.
 - Duplicate-input rejection.
@@ -2184,7 +2184,7 @@ TRU_ENABLE_08B4D9_AUTOMATIC_REORG=I_ACCEPT_PRODUCTION_CHAINWORK_REORGANIZATION .
 
 ---
 
-## 11. Patch 11 — Transaction Uniqueness + Signature Canonicalization — DONE
+## 11. Patch 11   Transaction Uniqueness + Signature Canonicalization   DONE
 
 - Duplicate txid rejection within blocks.
 - CVE-2012-2459-style Merkle duplication defense.
@@ -2201,9 +2201,9 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-# 12. Patch 12 — Script / VM / Relay / P2P Resource Hardening — DONE
+# 12. Patch 12   Script / VM / Relay / P2P Resource Hardening   DONE
 
-## 12A — Consensus Execution Limits — DONE
+## 12A   Consensus Execution Limits   DONE
 
 - Per-block sigop limit.
 - Per-transaction and per-block input/output limits.
@@ -2223,7 +2223,7 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-## 12A.1 — Interpreter Correctness — DONE
+## 12A.1   Interpreter Correctness   DONE
 
 - `OP_IF` / `OP_NOTIF` do not consume stack data inside inactive branches.
 - Nested dead-branch correctness.
@@ -2235,7 +2235,7 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-## 12B — Transaction Relay / Admission Policy — DONE
+## 12B   Transaction Relay / Admission Policy   DONE
 
 - Minimum relay fee.
 - Fee-rate-aware admission.
@@ -2248,7 +2248,7 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-## 12B.1 — Wallet Compatibility / Size-Aware Fees — DONE
+## 12B.1   Wallet Compatibility / Size-Aware Fees   DONE
 
 - Size-aware transaction fee calculation.
 - Large token metadata fee test.
@@ -2259,7 +2259,7 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-## 12C — P2P DoS Defense — DONE
+## 12C   P2P DoS Defense   DONE
 
 - Per-peer message/request rate budgets.
 - Invalid-message/block scoring.
@@ -2275,7 +2275,7 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-## 13. Patch 13 — Docker / Build Supply-Chain Hardening — DONE
+## 13. Patch 13   Docker / Build Supply-Chain Hardening   DONE
 
 - Remaining dependency pinning.
 - Consolidate build dependencies.
@@ -2289,7 +2289,7 @@ Addresses major portions of original audit findings H1, H2, and H9.
 
 ---
 
-## 14. Patch 14 — Wallet Encryption — PENDING
+## 14. Patch 14   Wallet Encryption   PENDING
 
 Required work:
 
@@ -2310,20 +2310,20 @@ Patch 14 should not be marked CLOSED until encrypted-wallet creation, restart, u
 
 ---
 
-## 15. Patch 15 — TRU Network / Address Identity — IN PROGRESS
+## 15. Patch 15   TRU Network / Address Identity   IN PROGRESS
 
 ### Status Summary
 
-* **15A — Address / Genesis / HD Identity: CLOSED**
-* **15B Audit — P2P Network Identity Mapping: CLOSED**
-* **15B.1 — P2P Wire Magic + VERSION Network Binding: CURRENT**
-* **15B.2 — TRU Default RPC / P2P Port Identity: NEXT**
+* **15A   Address / Genesis / HD Identity: CLOSED**
+* **15B Audit   P2P Network Identity Mapping: CLOSED**
+* **15B.1   P2P Wire Magic + VERSION Network Binding: CURRENT**
+* **15B.2   TRU Default RPC / P2P Port Identity: NEXT**
 * **15B Runtime / Two-Node Network Separation Proof: PENDING**
 * **Patch 15 Final Canonical Apply / Rebuild / Closeout: PENDING**
 
 ---
 
-### 15A — TRU Address / Genesis Identity — DONE
+### 15A   TRU Address / Genesis Identity   DONE
 
 Implemented and runtime validated:
 
@@ -2349,7 +2349,7 @@ Implemented and runtime validated:
 * Existing Bitcoin-style `1...`, `3...`, and `bc1...` wallet address behavior retired from the TRU mainnet wallet path.
 * Separate NOVO legacy bridge namespace intentionally preserved and excluded from TRU address rewriting.
 
-#### Fresh TRU Mainnet Genesis — DONE
+#### Fresh TRU Mainnet Genesis   DONE
 
 Canonical genesis identity:
 
@@ -2395,11 +2395,11 @@ Runtime proof confirmed:
 
 ---
 
-### 15B — TRU P2P / Wire Network Identity —  DONE 
+### 15B   TRU P2P / Wire Network Identity    DONE 
 
 Patch 15B separates TRU at the actual peer-to-peer protocol layer so a TRU node cannot silently communicate with an old/pre-Patch-15B node or another network using the same message format.
 
-#### 15B Audit — DONE
+#### 15B Audit   DONE
 
 Audit confirmed current pre-15B behavior:
 
@@ -2442,7 +2442,7 @@ Locked Patch 15B mainnet identity:
 
 ---
 
-### 15B.1 — P2P Wire Magic + VERSION Network Binding — CURRENT
+### 15B.1   P2P Wire Magic + VERSION Network Binding   CURRENT
 
 Current active gate.
 
@@ -2513,7 +2513,7 @@ Required 15B.1 runtime/static tests:
 
 ---
 
-### 15B.2 — TRU Default Port Identity — NEXT AFTER 15B.1
+### 15B.2   TRU Default Port Identity   NEXT AFTER 15B.1
 
 Centralize and replace legacy Bitcoin-associated/default ports where they represent TRU node defaults.
 
@@ -2548,13 +2548,13 @@ Patch 15B.2 should centralize these values in TRU network parameters rather than
 ---
 
 
-### 15B Final Runtime Validation — CLOSED
+### 15B Final Runtime Validation   CLOSED
 
 Patch 15B runtime validation is complete.
 
 All required network-separation and valid-peer synchronization behaviors were proven using fresh disposable nodes, isolated local ports, canonical Patch 15B binaries, and automatic reorganization disabled.
 
-#### Matching TRU Node Test — PASS
+#### Matching TRU Node Test   PASS
 
 Two isolated Patch 15B nodes were started using:
 
@@ -2605,7 +2605,7 @@ Final results:
 
 `DISPOSABLE_NODES_EXITED=YES`
 
-#### Wrong-Magic Test — PASS
+#### Wrong-Magic Test   PASS
 
 A hostile fixture connected using non-TRU framing magic.
 
@@ -2621,7 +2621,7 @@ Final result:
 
 `WRONG_MAGIC_REJECTED_BEFORE_PROTOBUF=PASS`
 
-#### Wrong-Network Test — PASS
+#### Wrong-Network Test   PASS
 
 A genuine canonical VERSION frame was captured, its network ID was changed to a foreign value while preserving valid TRU framing, and its frame checksum was recomputed using TRU's actual wire checksum algorithm:
 
@@ -2645,7 +2645,7 @@ Final result:
 
 This proves that valid TRU framing alone is insufficient to join TRU mainnet; the VERSION message must also bind explicitly to the correct TRU network identity.
 
-#### Pre-Patch-15B Compatibility Rejection — PASS BY WIRE-MAGIC ENFORCEMENT
+#### Pre-Patch-15B Compatibility Rejection   PASS BY WIRE-MAGIC ENFORCEMENT
 
 Pre-Patch-15B framing used:
 
@@ -2665,7 +2665,7 @@ Therefore an old pre-Patch-15B frame cannot silently participate in the new TRU 
 
 The wrong-magic runtime proof directly exercised this fail-closed boundary.
 
-#### Patch 15B Runtime Containment — PASS
+#### Patch 15B Runtime Containment   PASS
 
 Runtime validation also confirmed:
 
@@ -2686,7 +2686,7 @@ Final Patch 15B state:
 
 ---
 
-### Patch 15 Final Closeout — READY FOR FINAL IDENTITY SWEEP
+### Patch 15 Final Closeout   READY FOR FINAL IDENTITY SWEEP
 
 Patch 15A and Patch 15B are both functionally complete and runtime validated.
 
@@ -2771,12 +2771,12 @@ AUTOMATIC REORG         = OFF
 
 ---
 
-## 16. Patch 16 — Token Consensus / State Integrity Hardening — DONE
+## 16. Patch 16   Token Consensus / State Integrity Hardening   DONE
 
 **Priority:** production-readiness hardening.  
 **Immediate prerequisite borrowed from this patch:** Token-U4 disconnect/reapply proof before live 08B.4D.9B automatic reorganization.
 
-### 16A.0 — Confirmed-State-Only Token Indexing — CURRENT BLOCKER
+### 16A.0   Confirmed-State-Only Token Indexing   CURRENT BLOCKER
 
 - Remove direct confirmed-state LevelDB mutation from the active `issuetoken` RPC path.
 - `Blockchain::findTransaction()` currently searches both active chain and mempool; a mempool-only token transaction must never authorize confirmed-state index writes.
@@ -2798,7 +2798,7 @@ AUTOMATIC REORG         = OFF
 
 **16A.0 must close before the token U4 disconnect/reapply proof and before live 08B.4D.9B.**
 
-### 16A — Token U4 / Reorganization Integrity
+### 16A   Token U4 / Reorganization Integrity
 
 - Prove all consensus-relevant token mutations produced by normal `applyBlock()` flow through the caller-owned `mainBatch`.
 - Prove U4 PRE/POST witnesses include every token key actually mutated by confirmed token issuance/transfer.
@@ -2814,7 +2814,7 @@ AUTOMATIC REORG         = OFF
 - Audit/remove any out-of-band RPC or helper path that mutates confirmed token indexes outside authoritative block application.
 - Any required confirmed token write outside `mainBatch` must be re-plumbed or disabled before automatic reorganization is enabled.
 
-### 16B — Metadata Authentication / Unsafe Mutation Paths
+### 16B   Metadata Authentication / Unsafe Mutation Paths
 
 - Disable `updateOffChainMetadata()` until a real authenticated signature design exists.
 - Remove unconditional-success `verifyMetadataSignature()` behavior.
@@ -2827,7 +2827,7 @@ AUTOMATIC REORG         = OFF
 - No direct confirmed-state metadata rewrite outside authoritative batched/journaled state transitions.
 - Remove or fail-close demonstration/stub authentication code in production paths.
 
-### 16C — Token Identifier Strength / Versioned Format
+### 16C   Token Identifier Strength / Versioned Format
 
 - Current 4-byte / 32-bit token identifier commitment is not sufficient as a security identifier.
 - Design a versioned stronger token identifier format.
@@ -2839,7 +2839,7 @@ AUTOMATIC REORG         = OFF
 - Prevent deliberate prefix-grinding/collision between distinct tokens.
 - Define migration/compatibility rules for already-issued legacy 32-bit token IDs.
 
-### 16D — Token Amount / Parse Safety
+### 16D   Token Amount / Parse Safety
 
 * Removed the active `issuetoken` RPC path's pre-confirmation confirmed-state indexing behavior.
 * Restored the invariant that unconfirmed token transactions do not directly create confirmed:
@@ -3027,7 +3027,7 @@ The canonical run supports the source/build hashes and the final disposition abo
 
 ---
 
-## 17. Patch 17 — Consensus / Regtest / Fuzz Regression Suite — PENDING
+## 17. Patch 17   Consensus / Regtest / Fuzz Regression Suite   PENDING
 
 
 This is the broad final regression/security test suite.
@@ -3073,7 +3073,7 @@ Patch 17 should produce a repeatable automated suite with deterministic PASS/FAI
 
 ---
 
-## Deferred Patch 05 Deployment — PENDING
+## Deferred Patch 05 Deployment   PENDING
 
 After core consensus/security work stabilizes:
 
@@ -3094,7 +3094,7 @@ Required work:
 
 ---
 
-## 18. Patch 18 — Hard-Fork Commitment Cleanup — PENDING
+## 18. Patch 18   Hard-Fork Commitment Cleanup   PENDING
 
 Consensus-affecting hard-fork work:
 
@@ -3121,7 +3121,7 @@ Because the project intends to start a fresh chain, this is an especially import
 
 ---
 
-## 19. Patch 19 — Header-Only Block Index — PENDING
+## 19. Patch 19   Header-Only Block Index   PENDING
 
 This is primarily scalability/resource hardening.
 
@@ -3147,7 +3147,7 @@ Required work:
 
 Patch 19 closes after restart, mining, sync, side-chain indexing, candidate validation, reorganization, crash recovery, and explorer/RPC block retrieval all operate correctly without relying on full blocks being resident in `blockIndex`.
 ---
-## Stateful K/V V1 — COMPLETE / RUNTIME PROVEN
+## Stateful K/V V1   COMPLETE / RUNTIME PROVEN
 
 The Stateful foundation established the reference lifecycle used by later stateful contract families:
 
@@ -3171,7 +3171,7 @@ Proven properties include:
 
 The deferred Stateful U4 witness remains suitable for permanent regression coverage in `INT-28` / `SEC-17`.
 
-## SC-17 — Voting — COMPLETE
+## SC-17   Voting   COMPLETE
 
 Voting is no longer a future roadmap placeholder. The completed contract work supersedes the older pre-activation roadmap entry.
 
@@ -3181,7 +3181,7 @@ Status:
 SC-17  ████████████████████ COMPLETE
 ```
 
-## SC-18 — Oracle — COMPLETE
+## SC-18   Oracle   COMPLETE
 
 Oracle lock/finalization work is complete for the current contract scope and remains accepted after SC-22.
 
@@ -3191,7 +3191,7 @@ Status:
 SC-18  ████████████████████ COMPLETE
 ```
 
-## SC-19 — Hash Lock — COMPLETE
+## SC-19   Hash Lock   COMPLETE
 
 Hash Lock end-to-end contract behavior is complete for the current scope and remained mempool accepted after SC-22.
 
@@ -3201,7 +3201,7 @@ Status:
 SC-19  ████████████████████ COMPLETE
 ```
 
-## SC-20 — Contract Execution — COMPLETE
+## SC-20   Contract Execution   COMPLETE
 
 The contract execution layer is complete for the currently activated contract families.
 
@@ -3211,7 +3211,7 @@ Status:
 SC-20  ████████████████████ COMPLETE
 ```
 
-## SC-21A — Explorer Classification — COMPLETE
+## SC-21A   Explorer Classification   COMPLETE
 
 - Contract explorer classification moved to structural/canonical interpretation.
 - Contract families are displayed without relying on broad heuristic guessing.
@@ -3222,7 +3222,7 @@ Status:
 SC-21A ████████████████████ COMPLETE
 ```
 
-## SC-21B — RPC / Base58 Parity — COMPLETE
+## SC-21B   RPC / Base58 Parity   COMPLETE
 
 - Contract identifiers are no longer treated as though every identifier must be a Base58 address.
 - RPC / contract display parity was brought in line with structural contract identity.
@@ -3233,7 +3233,7 @@ Status:
 SC-21B ████████████████████ COMPLETE
 ```
 
-## SC-22 — Script / Relay Policy Cleanup — COMPLETE / RUNTIME PROVEN
+## SC-22   Script / Relay Policy Cleanup   COMPLETE / RUNTIME PROVEN
 
 SC-22 replaced broad legacy byte/regex policy with compiled structural recognition.
 
@@ -3257,7 +3257,7 @@ Completed behavior:
 - blockchain Custom fallback uses the same mempool policy;
 - legacy SmartContract Custom Script validates compiled bytecode rather than textual opcode names against hex regexes.
 
-### SC-22 runtime proof — PASS
+### SC-22 runtime proof   PASS
 
 ```text
 Existing Contract Vault                     PASS
@@ -3289,15 +3289,15 @@ src/smart_contract.h      f3f7c8c20709c6c3707c7425f9aff6069f1fce25f8145d0fd93559
 
 # 6. UI / Contract Vault Status
 
-## UI-30A — COMPLETE
+## UI-30A   COMPLETE
 
 Contract-vault/UI work completed.
 
-## UI-30B — COMPLETE
+## UI-30B   COMPLETE
 
 Contract-vault/UI work completed.
 
-## UI-30C — COMPLETE WITH TINY COSMETIC FOLLOW-UP
+## UI-30C   COMPLETE WITH TINY COSMETIC FOLLOW-UP
 
 Core UI-30C behavior is complete.
 
@@ -3306,7 +3306,7 @@ Remaining cosmetic item:
 > Suppress or redirect the `[SYNC] Waiting for peers...` heartbeat while the fullscreen Contract Vault/pager owns the screen so the sync lane cannot draw through contract cards.
 
 This is **not a blocker** for MS-01 contract development.
-# 8. MS-01 — Multisig / Escrow V1 — NEXT
+# 8. MS-01   Multisig / Escrow V1   NEXT
 
 ```text
 MS-01  ░░░░░░░░░░░░░░░░░░░░ NEXT
@@ -3357,7 +3357,7 @@ MS-01 must follow the SC-22 policy model:
 
 ## Proposed MS-01 patch sequence
 
-### MS-01A — Read-Only Multisig Architecture Audit - DONE
+### MS-01A   Read-Only Multisig Architecture Audit - DONE
 
 Confirm before mutation:
 
@@ -3375,7 +3375,7 @@ Confirm before mutation:
 
 **Gate:** no code mutation until the current execution/spend path is mapped.
 
-### MS-01B — Canonical 2-of-3 Script + Structural Policy- DONE
+### MS-01B   Canonical 2-of-3 Script + Structural Policy- DONE
 
 Implement one exact standard family for 2-of-3 escrow.
 
@@ -3392,7 +3392,7 @@ Requirements:
 - duplicate-key policy explicitly defined;
 - oversized/noncanonical pubkeys rejected.
 
-### MS-01C — Wallet / CLI Escrow Creation - DONE
+### MS-01C   Wallet / CLI Escrow Creation - DONE
 
 Create a wallet flow that accepts three participant identities/keys and an escrow amount.
 
@@ -3409,7 +3409,7 @@ Status: MEMPOOL ACCEPTED
 
 The wallet must not falsely claim confirmation before mining.
 
-### MS-01D — Signing / Redemption - DONE
+### MS-01D   Signing / Redemption - DONE
 
 Support the spend lifecycle.
 
@@ -3426,7 +3426,7 @@ wrong key + valid key -> FAIL
 malformed signature set -> FAIL
 ```
 
-### MS-01E — Escrow UI / Explorer / RPC Parity
+### MS-01E   Escrow UI / Explorer / RPC Parity
 
 Contract Vault / explorer should show:
 
@@ -3441,14 +3441,14 @@ State: UNSPENT / SPENT
 
 Do not mislabel the contract outpoint as a Base58 address.
 
-### MS-01F — Runtime Closeout
+### MS-01F   Runtime Closeout
 
 Required closeout proof:
 
 base) gw878@gw878:~/NEW_TRU$ bash ./TRU_MS_01F_MULTISIG_ESCROW_RUNTIME_CLOSEOUT_READ_ONLY.sh
 ============================================================
-TRU MS-01F — MULTISIG / ESCROW V1 RUNTIME CLOSEOUT
-READ-ONLY EVIDENCE HARNESS — NO SOURCE OR CHAIN MUTATION
+TRU MS-01F   MULTISIG / ESCROW V1 RUNTIME CLOSEOUT
+READ-ONLY EVIDENCE HARNESS   NO SOURCE OR CHAIN MUTATION
 ============================================================
 
 This harness does NOT manufacture PASS results.
@@ -3511,7 +3511,7 @@ Only mark MS-01 COMPLETE when the actual funded and redeemed 2-of-3 lifecycle ha
 
 ---
 
-# 9. HTLC-01 — Atomic Swap
+# 9. HTLC-01   Atomic Swap
 
 ```text
 HTLC-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3539,7 +3539,7 @@ This application should build on SC-19 and the established Time Lock path rather
 
 ---
 
-# 10. NFT-01 — Royalty NFT
+# 10. NFT-01   Royalty NFT
 
 ```text
 NFT-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3566,7 +3566,7 @@ Any consensus-affecting ownership covenant must be explicit and narrowly version
 
 ---
 
-# 11. GOV-01 — Treasury Governance
+# 11. GOV-01   Treasury Governance
 
 ```text
 GOV-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3591,7 +3591,7 @@ This should reuse SC-17 Voting state rules instead of creating a parallel voting
 
 ---
 
-# 12. VEST-01 — Vesting Plan
+# 12. VEST-01   Vesting Plan
 
 ```text
 VEST-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3613,7 +3613,7 @@ Prefer composition of existing primitives over new consensus rules.
 
 ---
 
-# 13. POE-01 — Proof of Existence
+# 13. POE-01   Proof of Existence
 
 ```text
 POE-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3634,7 +3634,7 @@ V1 should include:
 
 ---
 
-# 14. INH-01 — Inheritance Vault
+# 14. INH-01   Inheritance Vault
 
 ```text
 INH-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3657,7 +3657,7 @@ Possible model:
 
 ---
 
-# 15. TOK-01 — Batch Distribution
+# 15. TOK-01   Batch Distribution
 
 ```text
 TOK-01  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3687,7 +3687,7 @@ Legacy NOVO/BSTY script relay is intentionally disabled by SC-22 until this rede
 
 That is the desired state.
 
-## BR-23 — Bitcoin / Generic External-Chain Verification Framework
+## BR-23   Bitcoin / Generic External-Chain Verification Framework
 
 ```text
 BR-23  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3707,7 +3707,7 @@ Goals:
 
 The generic framework should be built first so later chains are adapters, not separate consensus inventions.
 
-## BR-24 — GlobalBoost-Y Bridge Migration
+## BR-24   GlobalBoost-Y Bridge Migration
 
 ```text
 BR-24  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3720,7 +3720,7 @@ BR-24  ░░░░░░░░░░░░░░░░░░░░ PENDING
 - replay prevention;
 - canonical bridge state namespace.
 
-## BR-25 — Solana Adapter
+## BR-25   Solana Adapter
 
 ```text
 BR-25  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3733,7 +3733,7 @@ BR-25  ░░░░░░░░░░░░░░░░░░░░ PENDING
 - asset mapping;
 - selected mint/burn or escrow semantics.
 
-## BR-26 — User-Defined / Custom Bridge Interface
+## BR-26   User-Defined / Custom Bridge Interface
 
 ```text
 BR-26  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3756,7 +3756,7 @@ A custom bridge must not mean arbitrary executable consensus code supplied by us
 
 # 17. FINAL CONTRACT INTEGRATION
 
-## INT-27 — Wallet / Compiler / Forms Parity
+## INT-27   Wallet / Compiler / Forms Parity
 
 ```text
 INT-27  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3775,7 +3775,7 @@ Every exposed contract/application must compile and spend the same canonical str
 
 No hidden legacy construction path should remain.
 
-## INT-28 — Full Contract Regression / Consensus Suite
+## INT-28   Full Contract Regression / Consensus Suite
 
 ```text
 INT-28  ░░░░░░░░░░░░░░░░░░░░ PENDING
@@ -3897,7 +3897,7 @@ The broader product direction is **TRU Verifiable Attribute History (VAH)**. AI 
 
 Canonical public framing:
 
-> A TRU SFT or NCFT can maintain an append-only AI-assisted metadata history whose lineage is cryptographically chained, whose individual evolution records are durably persisted, whose commitments are anchored into TRU transactions, and whose provenance can be independently checked against the active blockchain — without granting the AI authority over ownership, money, token supply, authorization, or consensus.
+> A TRU SFT or NCFT can maintain an append-only AI-assisted metadata history whose lineage is cryptographically chained, whose individual evolution records are durably persisted, whose commitments are anchored into TRU transactions, and whose provenance can be independently checked against the active blockchain   without granting the AI authority over ownership, money, token supply, authorization, or consensus.
 
 Canonical disclaimer:
 
@@ -3907,14 +3907,14 @@ Canonical disclaimer:
 
 ## 2. Completed Foundation
 
-### TOKEN-AI-01A — Integer Token Supply Scaling
+### TOKEN-AI-01A   Integer Token Supply Scaling
 **Status: CLOSED**
 
 - Removed floating-point issuance supply math.
 - Exact integer scaling.
 - Decimal bounds enforced.
 
-### TOKEN-AI-01B / 01B2R — 64-Bit Token IDs
+### TOKEN-AI-01B / 01B2R   64-Bit Token IDs
 **Status: CLOSED**
 
 - Canonical 64-bit token IDs.
@@ -3922,7 +3922,7 @@ Canonical disclaimer:
 - Legacy compatibility retained.
 - Native/RPC normalization aligned.
 
-### TOKEN-AI-01C — Native/Web Metadata Hash Parity
+### TOKEN-AI-01C   Native/Web Metadata Hash Parity
 **Status: CLOSED**
 
 - Canonical metadata hashing rules defined.
@@ -3930,7 +3930,7 @@ Canonical disclaimer:
 - Structured-value ambiguity removed.
 - This patch is the model for all future canonical request/record hashing rules.
 
-### TOKEN-AI-02A — Atomic Evolution Persistence
+### TOKEN-AI-02A   Atomic Evolution Persistence
 **Status: CLOSED**
 
 - Sequential epoch enforcement.
@@ -3943,7 +3943,7 @@ Canonical disclaimer:
 - Read-after-write verification.
 - Whole operation fails closed on persistence failure.
 
-### TOKEN-AI-02B — Crash-Safe Anchor Preparation
+### TOKEN-AI-02B   Crash-Safe Anchor Preparation
 **Status: CLOSED / HARDENED BY 02B2 + 02B3**
 
 - Deterministic prepare/sign before submit.
@@ -3952,7 +3952,7 @@ Canonical disclaimer:
 - Receipt support.
 - Queue drain tied to successful anchor submission path.
 
-### TOKEN-AI-02B2 — Durable Submitted Anchor Watch
+### TOKEN-AI-02B2   Durable Submitted Anchor Watch
 **Status: CLOSED**
 
 - Submitted-but-unconfirmed anchors survive restart.
@@ -3961,7 +3961,7 @@ Canonical disclaimer:
 - Confirmed anchors retire from watch.
 - Mempool-loss rebroadcast supported.
 
-### TOKEN-AI-02B3 — Prepared TXID Materialization
+### TOKEN-AI-02B3   Prepared TXID Materialization
 **Status: CLOSED**
 
 - Persisted prepared transaction is deserialized.
@@ -3969,7 +3969,7 @@ Canonical disclaimer:
 - Materialized txid must equal durable expected txid.
 - Same signed transaction is rebroadcast; no re-signing.
 
-### TOKEN-AI-02C — Full Epoch Chain / Receipt Verifier
+### TOKEN-AI-02C   Full Epoch Chain / Receipt Verifier
 **Status: CLOSED**
 
 - Root verification.
@@ -3978,7 +3978,7 @@ Canonical disclaimer:
 - Receipt/prepared/queue state validation.
 - Full history verification API/CLI.
 
-### TOKEN-AI-02D / 02D1 / 02D2 / 02D3 — Live Provenance Verification
+### TOKEN-AI-02D / 02D1 / 02D2 / 02D3   Live Provenance Verification
 **Status: CLOSED**
 
 - Active-chain anchor transaction lookup.
@@ -3990,7 +3990,7 @@ Canonical disclaimer:
 - Oracle signer wallet lifetime repair.
 - Fresh runtime fixture proven through confirmed anchor verification.
 
-### CR-01A — Core Direct-Tip Crash-Atomic Publication
+### CR-01A   Core Direct-Tip Crash-Atomic Publication
 **Status: CLOSED**
 
 Discovered during Token Evolution runtime testing.
@@ -4001,7 +4001,7 @@ Discovered during Token Evolution runtime testing.
 - Atomic publication metadata handling.
 - Normal live direct-connect path proven after patch.
 
-### CR-01B — Height/State Recovery Repair
+### CR-01B   Height/State Recovery Repair
 **Status: CLOSED**
 
 - Rolled back contaminated replacement blocks.
@@ -4015,7 +4015,7 @@ Discovered during Token Evolution runtime testing.
 
 ## 3. Current Patch
 
-### TOKEN-AI-03A — Wallet AI Evolution Preview / Exact Commit
+### TOKEN-AI-03A   Wallet AI Evolution Preview / Exact Commit
 **Status: CLOSED**
 
 Purpose:
@@ -4039,7 +4039,7 @@ Important runtime rule:
 
 # 4. V1 Remaining Patch Plan
 
-## TOKEN-AI-03A1 — Preview/Commit Boundary Hardening
+## TOKEN-AI-03A1   Preview/Commit Boundary Hardening
 **Status: CLOSED**
 
 03A1 makes critical backend invariants explicit and testable at the user-action boundary.
@@ -4122,7 +4122,7 @@ If Alice commits epoch 5 and transfers the token before epoch 5 confirms, epoch 
 
 ---
 
-## TOKEN-AI-03A2 — Evolution Record V2 / Provenance Format
+## TOKEN-AI-03A2   Evolution Record V2 / Provenance Format
 **Status: CLOSED**
 
 This patch freezes a richer, future-compatible record format before 03B builds the permanent history UI.
@@ -4238,7 +4238,7 @@ SHA256(canonical_request_bytes)
 
 ---
 
-## TOKEN-AI-03B — Token-Centric Evolution History UI
+## TOKEN-AI-03B   Token-Centric Evolution History UI
 **Status: CLOSED**
 
 Build once against the final 03A2 record format.
@@ -4262,7 +4262,7 @@ History follows the token across ownership transfers.
 
 ---
 
-## TOKEN-AI-03C — SECURITY: Untrusted AI Output / Stored-XSS Containment
+## TOKEN-AI-03C   SECURITY: Untrusted AI Output / Stored-XSS Containment
 ***Status: CLOSED**
 
 This is not cosmetic UI work. Provider/model output is untrusted input.
@@ -4283,7 +4283,7 @@ Success requirement:
 
 ---
 
-## TOKEN-AI-03D — Anchor / Provenance Verification UI
+## TOKEN-AI-03D   Anchor / Provenance Verification UI
 **Status: CLOSED**
 
 Expose the proven 02C/02D machinery cleanly in wallet/web UI.
@@ -4361,13 +4361,13 @@ AI PROVENANCE V1 = CLOSED
 
 ---
 
-# 7. V2 — TRU Verifiable Attribute History
+# 7. V2   TRU Verifiable Attribute History
 
 V2 generalizes the V1 evolution engine to stronger writer classes.
 
 Do not activate external writers until writer authorization and canonical multi-node reconciliation are solved.
 
-## VAH-01 — Canonical Writer Registry / Historical Authorization
+## VAH-01   Canonical Writer Registry / Historical Authorization
 **Status: CLOSED**
 Purpose:
 
@@ -4385,7 +4385,7 @@ Preferred direction: writer-registry changes are themselves owner-authorized his
 
 ---
 
-## VAH-02 — Multi-Node Canonical Epoch Reconciliation
+## VAH-02   Multi-Node Canonical Epoch Reconciliation
 **Status: CLOSED**
 
 Two nodes can independently create competing candidate epoch N records. The confirmed blockchain anchor determines the canonical winner.
@@ -4415,7 +4415,7 @@ with explicit `NON_CANONICAL` status.
 
 ---
 
-## VAH-03 — Human / Sensor / Device Writers
+## VAH-03   Human / Sensor / Device Writers
 
 External writers activate only after VAH-01 and VAH-02.
 
@@ -4459,7 +4459,7 @@ Ownership/supply/consensus fields remain outside all evolution writer authority.
 
 ---
 
-## VAH-04 — Sensor Batching / Event Feed Architecture
+## VAH-04   Sensor Batching / Event Feed Architecture
 
 Do not make one blockchain epoch per high-frequency sensor reading. The confirmed-parent rule remains intact.
 
@@ -4528,7 +4528,7 @@ VAH V2 FINAL CLOSEOUT
 RETURN TO CORE TRU ROADMAP
 ```
 
-## VAH V2 — FINAL CLOSEOUT — CLOSED
+## VAH V2   FINAL CLOSEOUT   CLOSED
 
 **Status: CLOSED / FROZEN**
 
@@ -4536,24 +4536,24 @@ TRU Verifiable Attribute History V2 completed its final integrated closeout on S
 
 Closed generations:
 
-- VAH-01 — Canonical Writer Registry / Historical Authorization
-- VAH-02 — Multi-Node Canonical Epoch Reconciliation
-- VAH-03 — Human / Sensor / Device Writer Foundation
-- VAH-04 — Sensor Batching / Event Feed Architecture
+- VAH-01   Canonical Writer Registry / Historical Authorization
+- VAH-02   Multi-Node Canonical Epoch Reconciliation
+- VAH-03   Human / Sensor / Device Writer Foundation
+- VAH-04   Sensor Batching / Event Feed Architecture
 
 Final closeout proof:
 
-- authoritative post-VAH-04D source ledger — PASS;
-- all 12 VAH-owned durable namespaces use strict double-SHA verification — PASS;
-- complete VAH-01 through VAH-04 DEV regression set — PASS;
-- production `tru_advanced` build — PASS;
-- final authoritative source-hash recheck — PASS;
-- RPC/P2P external-writer ingress — NOT ENABLED;
-- RPC/P2P sensor ingress — NOT ENABLED;
-- automatic sensor/external-writer wallet spending — NO;
-- automatic re-anchor after canonical-chain disagreement — NO;
-- automatic fork/reorg activation — NO;
-- chain reset — NO.
+- authoritative post-VAH-04D source ledger   PASS;
+- all 12 VAH-owned durable namespaces use strict double-SHA verification   PASS;
+- complete VAH-01 through VAH-04 DEV regression set   PASS;
+- production `tru_advanced` build   PASS;
+- final authoritative source-hash recheck   PASS;
+- RPC/P2P external-writer ingress   NOT ENABLED;
+- RPC/P2P sensor ingress   NOT ENABLED;
+- automatic sensor/external-writer wallet spending   NO;
+- automatic re-anchor after canonical-chain disagreement   NO;
+- automatic fork/reorg activation   NO;
+- chain reset   NO.
 
 The first attempted final closeout stopped safely at its source-freeze gate because a mutable staging copy of `README_TOKEN_EVOLVE.md` had been used to construct the expected ledger instead of the authoritative VAH-04D postimage.
 
@@ -4571,7 +4571,7 @@ The corrected closeout used the authoritative VAH-04D source ledger and passed c
 
 Cross-generation composition coverage:
 
-**ROTATE-AFTER-MATERIALIZE — NOT COVERED AS A DEDICATED INTEGRATED FIXTURE**
+**ROTATE-AFTER-MATERIALIZE   NOT COVERED AS A DEDICATED INTEGRATED FIXTURE**
 
 The final VAH V2 closeout executed the complete individual VAH-01 through VAH-04 DEV regression matrices sequentially. It did not introduce a dedicated composition fixture exercising authorization rotation/revocation after already-materialized external-writer or sensor state.
 
@@ -4589,7 +4589,7 @@ Future regression work should explicitly exercise:
 **TRU VERIFIED AUTHORIZED HISTORY V2 = CLOSED / FROZEN**
 
 ---
-HTLC-01 — Canonical HTLC Primitive — COMPLETE
+HTLC-01   Canonical HTLC Primitive   COMPLETE
 
 The canonical atomic-swap contract primitive is complete.
 
@@ -4620,7 +4620,7 @@ BSTY V1 funding identity:
 
 the 103-byte redeemScript is wrapped in P2SH;
 funding target is the canonical BSTY P2SH address/scriptPubKey.
-SWAP-00 — Cross-Chain Protocol Freeze — COMPLETE
+SWAP-00   Cross-Chain Protocol Freeze   COMPLETE
 
 Completed protocol decisions:
 
@@ -4639,7 +4639,7 @@ must be handled explicitly.
 
 SWAP-00A / SWAP-00B / SWAP-00C protocol foundation is CLOSED.
 
-SWAP-A — TRU Swap RPC + Durable Record Foundation — COMPLETE
+SWAP-A   TRU Swap RPC + Durable Record Foundation   COMPLETE
 
 Implemented:
 
@@ -4664,7 +4664,7 @@ Durable swap identity uses canonical deterministic hashing and stores
 chain IDs, funding order, HASH160 commitment, role public keys, amounts,
 refund times and evidence.
 
-SWAP-B — TRU ↔ BSTY Cross-Chain Engine — COMPLETE
+SWAP-B   TRU ↔ BSTY Cross-Chain Engine   COMPLETE
 
 Completed:
 
@@ -4693,11 +4693,11 @@ confirmation count.
 
 Known production debt is intentionally deferred to SWAP-C / AGENT work.
 
-SWAP-C — Funded E2E / Crash / Adversarial Closeout — PENDING
+SWAP-C   Funded E2E / Crash / Adversarial Closeout   PENDING
 
 SWAP-C must close before meaningful mainnet value is used.
 
-SWAP-C01 — TRU_FIRST Happy Path
+SWAP-C01   TRU_FIRST Happy Path
 
 Prove:
 
@@ -4711,7 +4711,7 @@ BSTY claim exposes secret;
 TRU observes secret;
 TRU claim succeeds;
 durable state becomes SETTLED.
-SWAP-C02 — Dual Refund
+SWAP-C02   Dual Refund
 
 Prove both funded legs recover safely without a claim.
 
@@ -4719,7 +4719,7 @@ Expected terminal state:
 
 REFUNDED
 
-SWAP-C03 — Mixed Resolution
+SWAP-C03   Mixed Resolution
 
 Prove one funded leg confirmed claimed and the other confirmed refunded.
 
@@ -4727,7 +4727,7 @@ Expected terminal state:
 
 RESOLVED_MIXED
 
-SWAP-C04 — Reverse Funding Order
+SWAP-C04   Reverse Funding Order
 
 Repeat the complete lifecycle with:
 
@@ -4735,7 +4735,7 @@ BSTY_FIRST
 
 and prove the longer/shorter timeout relationship is correctly reversed.
 
-SWAP-C05 — Broadcast / Restart Reconciliation
+SWAP-C05   Broadcast / Restart Reconciliation
 
 Close the current broadcast-before-persistence weakness.
 
@@ -4749,7 +4749,7 @@ no duplicate claim/refund broadcast;
 reconcile broadcast-success/persistence-failure;
 reconcile persistence-success/process-crash;
 idempotent retry behavior.
-SWAP-C06 — Reorg / Confirmation Regression
+SWAP-C06   Reorg / Confirmation Regression
 
 Test:
 
@@ -4761,7 +4761,7 @@ competing spend detection;
 unexpected funding-outpoint spend;
 stale transaction evidence;
 restart while confirmation state changes.
-SWAP-C07 — Adverse Timing
+SWAP-C07   Adverse Timing
 
 Test boundaries around:
 
@@ -4773,7 +4773,7 @@ offline participant;
 watcher restart;
 minimum safety gap enforcement.
 LOCAL AGENT DELIVERY SERIES
-AGENT-01A — Local HTTP Adapter Foundation — COMPLETE
+AGENT-01A   Local HTTP Adapter Foundation   COMPLETE
 
 Runtime-proven on gw878.
 
@@ -4791,7 +4791,7 @@ protected browser/agent boundary.
 
 Mutating swap endpoints intentionally remain fail-closed.
 
-AGENT-01A1 — Manual Pairing Alignment — COMPLETE
+AGENT-01A1   Manual Pairing Alignment   COMPLETE
 
 Completed:
 
@@ -4811,9 +4811,9 @@ Runtime proof:
 public market.html reached the private local agent through local loopback;
 manual pairing succeeded;
 demonstration board was replaced by:
-Live board — Connected to Local TRU Swap Board;
+Live board   Connected to Local TRU Swap Board;
 real empty local board rendered successfully.
-AGENT-01A2 — One-Click Pairing + Automatic Reconnect — NEXT
+AGENT-01A2   One-Click Pairing + Automatic Reconnect   NEXT
 
 Remove manual token copy/paste from normal user experience.
 
@@ -4840,7 +4840,7 @@ agent restart behavior defined;
 stale pairing automatically renegotiated;
 paired UI hides/replaces Enter token;
 no silent authorization of an unknown website origin.
-AGENT-01B — Per-Swap TRU Key + Destination Allocator — PENDING
+AGENT-01B   Per-Swap TRU Key + Destination Allocator   PENDING
 
 Production swaps must stop reusing fixed development role children.
 
@@ -4863,7 +4863,7 @@ explicit disarm/rebuild flow if destination changes.
 
 BSTY receives equivalent wallet-derived destination handling.
 
-AGENT-01C — Persistent Watcher / Exit Recovery — PENDING
+AGENT-01C   Persistent Watcher / Exit Recovery   PENDING
 
 Implement unattended observation for:
 
@@ -4882,7 +4882,7 @@ while the swap continues safely.
 Implement persistent exit authorization/templates only after their exact
 sighash and destination semantics are regression proven.
 
-AGENT-01D — Safe Funding / Idempotent Reconciliation — PENDING
+AGENT-01D   Safe Funding / Idempotent Reconciliation   PENDING
 
 Replace the current fail-closed /v1/fund.
 
@@ -4917,7 +4917,7 @@ FUNDING_INVALID → recovery/refund → RECOVERED
 This is distinct from normal REFUNDED.
 
 MARKET DELIVERY SERIES
-MARKET-01 — Public Intent-Only Swap Board — PENDING
+MARKET-01   Public Intent-Only Swap Board   PENDING
 
 Move public discovery/advert coordination behind the normal public web/API
 infrastructure.
@@ -4949,7 +4949,7 @@ TRU_SWAP_RPC_TOKEN.
 The public board and the local wallet-control agent remain separate security
 domains.
 
-MARKET-02 — Atomic Reserve + Swap Mint — PENDING
+MARKET-02   Atomic Reserve + Swap Mint   PENDING
 
 board/take remains fail-closed until reserve and mint become one safe workflow.
 
@@ -4971,7 +4971,7 @@ capability check before reservation;
 poster/taker perspective registration;
 fresh H and role keys only after successful reservation.
 DISTRIBUTABLE AGENT / NO-PYTHON SERIES
-PKG-01 — Portable Agent Runtime — PENDING
+PKG-01   Portable Agent Runtime   PENDING
 
 Users must not be required to install Python or manually activate a venv.
 
@@ -4994,7 +4994,7 @@ The local service continues binding only:
 
 127.0.0.1:8645
 
-PKG-02 — Native Installers — PENDING
+PKG-02   Native Installers   PENDING
 
 Produce user-facing packages:
 
@@ -5012,7 +5012,7 @@ Python installation;
 venv commands;
 shell activation;
 manual source checkout.
-PKG-03 — Autostart / Tray / Lifecycle — PENDING
+PKG-03   Autostart / Tray / Lifecycle   PENDING
 
 Implement:
 
@@ -5041,7 +5041,7 @@ Reset Website Pairing
 Restart Agent
 Stop Agent
 LOCAL / REMOTE NODE CONNECTIVITY
-AGENT-NET-01 — No-Manual-SSH Runtime Topology — PENDING
+AGENT-NET-01   No-Manual-SSH Runtime Topology   PENDING
 
 Production users should NOT need SSH.
 
@@ -5075,7 +5075,7 @@ macOS launchd may maintain the tunnel automatically;
 if outside the home LAN, use a private VPN/routable private address;
 do not expose 127.0.0.1:8645 through Cloudflare.
 FINAL WEB / UX ALIGNMENT
-UI-SWAP-01 — Production Browser Contract — PENDING
+UI-SWAP-01   Production Browser Contract   PENDING
 
 Complete:
 
@@ -5096,7 +5096,7 @@ capability-derived controls.
 TRU bare contract outputs must never be displayed as fake TRU addresses or
 encoded in an ordinary address QR.
 
-SWAP-FINAL — RELEASE / SECURITY CLOSEOUT — PENDING
+SWAP-FINAL   RELEASE / SECURITY CLOSEOUT   PENDING
 
 Close only after:
 
@@ -5161,7 +5161,7 @@ TOKEN-AI-03D                 █████████████████
 AI PROVENANCE V1             ████████████████████ FINAL CLOSEOUT
 
 
-VAH-01 — IDENTITY / AUTHORIZATION
+VAH-01   IDENTITY / AUTHORIZATION
 ────────────────────────────────────────────────────────────
 VAH-01A Writer identity      ████████████████████ CLOSED
 VAH-01B Capability registry  ████████████████████ CLOSED
@@ -5172,7 +5172,7 @@ VAH-01F Adversarial harness  █████████████████
 VAH-01G Documentation        ████████████████████ CLOSED
 
 
-VAH-02 — MULTI-NODE RECONCILIATION
+VAH-02   MULTI-NODE RECONCILIATION
 ────────────────────────────────────────────────────────────
 VAH-02A Canonical election   ████████████████████ CLOSED
 VAH-02B Chain observation    ████████████████████ CLOSED
@@ -5182,7 +5182,7 @@ VAH-02D Strong V2 binding    █████████████████
 VAH-02 FOUNDATION            ████████████████████ CLOSED
 
 
-VAH-03 — HUMAN / SENSOR / DEVICE WRITERS
+VAH-03   HUMAN / SENSOR / DEVICE WRITERS
 ────────────────────────────────────────────────────────────
 VAH-03A  Writer authorization/admission     ████████████████████ CLOSED
 VAH-03B  Durable bounded staging            ████████████████████ CLOSED
@@ -5191,7 +5191,7 @@ VAH-03D Canonical external                  ████████████
 VAH-03 CLOSEOUT                             ████████████████████ CLOSED
 
 
-VAH-04 — SENSOR BATCHING / EVENT FEEDS
+VAH-04   SENSOR BATCHING / EVENT FEEDS
 ────────────────────────────────────────────────────────────
 VAH-04A  Canonical sensor batch + Merkle commitments     ████████████████████ CLOSED
 VAH-04B  Durable accumulator / sequence / replay         ████████████████████ CLOSED
@@ -5215,29 +5215,29 @@ UI-30C  ████████████████████ COMPLETE*
          * tiny fullscreen SYNC-lane ownership repair remains
 
 SMART CONTRACT HARDENING / ACTIVATION
-SC-17   ████████████████████ COMPLETE — Voting
-SC-18   ████████████████████ COMPLETE — Oracle
-SC-19   ████████████████████ COMPLETE — Hash Lock
-SC-20   ████████████████████ COMPLETE — Contract execution
-SC-21A  ████████████████████ COMPLETE — Explorer Classification
-SC-21B  ████████████████████ COMPLETE — RPC / Base58 Parity
-SC-22   ████████████████████ COMPLETE — Script / Relay Policy Cleanup
+SC-17   ████████████████████ COMPLETE   Voting
+SC-18   ████████████████████ COMPLETE   Oracle
+SC-19   ████████████████████ COMPLETE   Hash Lock
+SC-20   ████████████████████ COMPLETE   Contract execution
+SC-21A  ████████████████████ COMPLETE   Explorer Classification
+SC-21B  ████████████████████ COMPLETE   RPC / Base58 Parity
+SC-22   ████████████████████ COMPLETE   Script / Relay Policy Cleanup
 
 CONTRACT APPLICATIONS
 ────────────────────────────────────────────────────────────
-MS-01       ████████████████████ COMPLETE — Multisig / Escrow
-HTLC-01     ████████████████████ COMPLETE — canonical TRU HTLC / Atomic Swap
+MS-01       ████████████████████ COMPLETE   Multisig / Escrow
+HTLC-01     ████████████████████ COMPLETE   canonical TRU HTLC / Atomic Swap
 
 
 TRU ↔ EXTERNAL CHAIN ATOMIC SWAP STACK
 ────────────────────────────────────────────────────────────
-SWAP-00     ████████████████████ COMPLETE — frozen cross-chain protocol
-SWAP-A      ████████████████████ COMPLETE — TRU swap RPC/state foundation
-SWAP-B      ████████████████████ COMPLETE — TRU↔BSTY engine + resolution state
+SWAP-00     ████████████████████ COMPLETE   frozen cross-chain protocol
+SWAP-A      ████████████████████ COMPLETE   TRU swap RPC/state foundation
+SWAP-B      ████████████████████ COMPLETE   TRU↔BSTY engine + resolution state
 
-AGENT-01A   ████████████████████ COMPLETE — loopback HTTP adapter
-AGENT-01A1  ████████████████████ COMPLETE — canonical path + manual-pairing alignment
-AGENT-01A2  ████████████████████ COMPLETE — HttpOnly pairing / automatic reconnect
+AGENT-01A   ████████████████████ COMPLETE   loopback HTTP adapter
+AGENT-01A1  ████████████████████ COMPLETE   canonical path + manual-pairing alignment
+AGENT-01A2  ████████████████████ COMPLETE   HttpOnly pairing / automatic reconnect
 AGENT-01A2.1████████████████████ COMPLETE  Cloudflare Access credential/CORS repair
 
 AGENT-01A2.1 ████████████████████ CLOSED
@@ -5262,11 +5262,11 @@ SWAP-FRESH-01B4B   ████████████████████ 
 SWAP-FRESH-01B4C   ████████████████████ CLOSED
 SWAP-FRESH-01B4D   ████████████████████ CLOSED
 
-GROUP-1     ████████████████████ CLOSED— TRU reservation + broadcast safety
-GROUP-2    ████████████████████ CLOSED — BSTY full prebroadcast safety
-GROUP-3     ████████████████████ CLOSED — dual-chain funding activation
-GROUP-4     ████████████████████ CLOSED — watcher / claim / refund recovery
-GROUP-5     ████████████████████ CLOSED — tiny real funded swap
+GROUP-1     ████████████████████ CLOSED  TRU reservation + broadcast safety
+GROUP-2    ████████████████████ CLOSED   BSTY full prebroadcast safety
+GROUP-3     ████████████████████ CLOSED   dual-chain funding activation
+GROUP-4     ████████████████████ CLOSED   watcher / claim / refund recovery
+GROUP-5     ████████████████████ CLOSED   tiny real funded swap
 TRU CRASH-SAFE FUNDING RECONCILIATION ████████████████████ CLOSED
 SWAP-C     ████████████████████ CLOSED  TRU - BSTY funded E2E / adversarial closeout
 
@@ -5297,7 +5297,7 @@ AGENT-01D   ████████████████████ CLOSED
 
 TRU MARKET / PRICE DISCOVERY
 ────────────────────────────────────────────────────────────
-MARKET-01A  ████████████████████ COMPLETE — public TRU/BSTY intent book
+MARKET-01A  ████████████████████ COMPLETE   public TRU/BSTY intent book
 
 MARKET-01B  ████████████████████ CLOSED
             canonical BSTY-per-TRU bid/ask pricing
@@ -5337,32 +5337,32 @@ MARKET WEB
 ────────────────────────────────────────────────────────────
 MARKET-MASTER-01 through MARKET-01C  ██████████░░░░░░░░░░ IN PROGRESS Public Take + atomic reservation + fresh swap binding NO automatic funding
 
-MARKET-MASTER-02 though MARKET-01G  ░░░░░░░░░░░░░░░░░░░░ PENDING — confirmed trade tape + OHLC/volume/VWAP/spread/depth + public read-only data API + historical candles
+MARKET-MASTER-02 though MARKET-01G  ░░░░░░░░░░░░░░░░░░░░ PENDING   confirmed trade tape + OHLC/volume/VWAP/spread/depth + public read-only data API + historical candles
 
-MARKET-MASTER-03 through MARKET-01H + MARKET-02  ░░░░░░░░░░░░░░░░░░░░ PENDING — integrity controls + duplicate/self-trade protection + production TRU/BSTY market closeout
+MARKET-MASTER-03 through MARKET-01H + MARKET-02  ░░░░░░░░░░░░░░░░░░░░ PENDING   integrity controls + duplicate/self-trade protection + production TRU/BSTY market closeout
 
-MARKET-03A  ░░░░░░░░░░░░░░░░░░░░ PENDING — CoinGecko market integration package
-MARKET-03B  ░░░░░░░░░░░░░░░░░░░░ PENDING — CoinMarketCap market integration package
-MARKET-03C  ░░░░░░░░░░░░░░░░░░░░ PENDING — TRU cryptoasset listing package
+MARKET-03A  ░░░░░░░░░░░░░░░░░░░░ PENDING   CoinGecko market integration package
+MARKET-03B  ░░░░░░░░░░░░░░░░░░░░ PENDING   CoinMarketCap market integration package
+MARKET-03C  ░░░░░░░░░░░░░░░░░░░░ PENDING   TRU cryptoasset listing package
 
 MARKET PAIR EXPANSION
 ────────────────────────────────────────────────────────────
-PAIR-01      ░░░░░░░░░░░░░░░░░░░░ PENDING — TRU/BSTY — first native atomic-swap market
-PAIR-02      ░░░░░░░░░░░░░░░░░░░░ PENDING — TRU/BTC — stronger external price reference
-PAIR-03      ░░░░░░░░░░░░░░░░░░░░ PENDING — TRU/USDT — direct USD-denominated reference
+PAIR-01      ░░░░░░░░░░░░░░░░░░░░ PENDING   TRU/BSTY   first native atomic-swap market
+PAIR-02      ░░░░░░░░░░░░░░░░░░░░ PENDING   TRU/BTC   stronger external price reference
+PAIR-03      ░░░░░░░░░░░░░░░░░░░░ PENDING   TRU/USDT   direct USD-denominated reference
 
 
 DISTRIBUTABLE SWAP AGENT
 ────────────────────────────────────────────────────────────
-PKG-01       ░░░░░░░░░░░░░░░░░░░░ PENDING — portable agent runtime
-PKG-02       ░░░░░░░░░░░░░░░░░░░░ PENDING — Windows / macOS / Linux installers
-PKG-03       ░░░░░░░░░░░░░░░░░░░░ PENDING — autostart / tray / signed updates
+PKG-01       ░░░░░░░░░░░░░░░░░░░░ PENDING   portable agent runtime
+PKG-02       ░░░░░░░░░░░░░░░░░░░░ PENDING   Windows / macOS / Linux installers
+PKG-03       ░░░░░░░░░░░░░░░░░░░░ PENDING   autostart / tray / signed updates
 
-SWAP-FINAL   ░░░░░░░░░░░░░░░░░░░░ PENDING — production security + release closeout
+SWAP-FINAL   ░░░░░░░░░░░░░░░░░░░░ PENDING   production security + release closeout
 
-TRU/BSTY   ░░░░░░░░░░░░░░░░░░░░ PENDING — ← first native cross-chain market
-TRU/BTC    ░░░░░░░░░░░░░░░░░░░░ PENDING — ← much stronger external reference
-TRU/USDT   ░░░░░░░░░░░░░░░░░░░░ PENDING — ← strongest simple USD reference if/when practical
+TRU/BSTY   ░░░░░░░░░░░░░░░░░░░░ PENDING   ← first native cross-chain market
+TRU/BTC    ░░░░░░░░░░░░░░░░░░░░ PENDING   ← much stronger external reference
+TRU/USDT   ░░░░░░░░░░░░░░░░░░░░ PENDING   ← strongest simple USD reference if/when practical
 
 TOKENS 
 ────────────────────────────────────────────────────────────
@@ -5396,11 +5396,11 @@ IDX-19   ░░░░░░░░░░░░░░░░░░░░ Header-onl
 
 VAH V2 KNOWN DEFERRALS / PERMANENT REGRESSION COVERAGE
 ────────────────────────────────────────────────────────────
-VAH-COMP-01 ░░░░░░░░░░░░░░░░░░░░ Rotate/revoke-after-materialize composition fixture — NOT COVERED
-VAH-MIG-01  ░░░░░░░░░░░░░░░░░░░░ TOKEN:EVOLUTION legacy checksum inventory/migration — DEFERRED / DELIBERATE
+VAH-COMP-01 ░░░░░░░░░░░░░░░░░░░░ Rotate/revoke-after-materialize composition fixture   NOT COVERED
+VAH-MIG-01  ░░░░░░░░░░░░░░░░░░░░ TOKEN:EVOLUTION legacy checksum inventory/migration   DEFERRED / DELIBERATE
 
 
-NODE-REAL-01 — Independent Multi-Node Divergence / Convergence Proof — CLOSED / RUNTIME PROVEN
+NODE-REAL-01   Independent Multi-Node Divergence / Convergence Proof   CLOSED / RUNTIME PROVEN
 
 Completed runtime proof:
 
@@ -5447,31 +5447,31 @@ CURRENT PRIORITY AFTER VAH V2 CLOSEOUT
 
 Completed foundations:
 
-- Patch 09 authoritative 256-bit chainwork — DONE
-- Patch 08A bounded side-chain indexing — DONE
-- Patch 08B.1 durable U4 undo journals — DONE
-- Patch 08B.2 authenticated journal reader + safe single-tip disconnect — DONE
-- Patch 08B.3 isolated stateful fork validation — DONE
-- Patch 08B.3a LevelDB registry lifetime / locking — DONE
-- Patch 08B.3b sandbox hygiene / performance — DONE
-- Patch 08B.3T controlled runtime execution tests — DONE
-- Patch 08B.4A durable reorg preflight / PREPARED state machine — DONE
-- Patch 08B.4A.1 save-chain-state durability/lifetime fix — DONE
-- Patch 08B.4A.1a deterministic shutdown — DONE
-- Patch 08B.4A.1b signal-safe CLI shutdown — DONE
-- Patch 08B.4B controlled multi-block reorg executor — DONE
-- Patch 08B.4C authenticated crash recovery — DONE
-- Patch 08B.4D.1 runtime stale-side pruning — DONE
-- Patch 08B.4D.2 work-aware side-pool admission / eviction — DONE
-- Patch 08B.4D.3 U4 retention / pruning — DONE
-- Patch 08B.4D.4 positive candidate-validation cache — DONE
-- Patch 08B.4D.5 immutable-only negative candidate cache — DONE
-- Patch 08B.4D.6 per-source validation budget — DONE
-- Patch 08B.4D.7 global validation budget — DONE
-- Patch 08B.4D.8 final regression / crash / adversarial / gate-OFF closeout — DONE
-- Patch 08B.4D.9 Step 1 activation-surface inventory — DONE
-- Patch 08B.4D.9 Step 2 executor/API deep dive — DONE
-- Patch 08B.4D.9A production gate + fail-stop shutdown plumbing — DONE / CLOSED
+- Patch 09 authoritative 256-bit chainwork   DONE
+- Patch 08A bounded side-chain indexing   DONE
+- Patch 08B.1 durable U4 undo journals   DONE
+- Patch 08B.2 authenticated journal reader + safe single-tip disconnect   DONE
+- Patch 08B.3 isolated stateful fork validation   DONE
+- Patch 08B.3a LevelDB registry lifetime / locking   DONE
+- Patch 08B.3b sandbox hygiene / performance   DONE
+- Patch 08B.3T controlled runtime execution tests   DONE
+- Patch 08B.4A durable reorg preflight / PREPARED state machine   DONE
+- Patch 08B.4A.1 save-chain-state durability/lifetime fix   DONE
+- Patch 08B.4A.1a deterministic shutdown   DONE
+- Patch 08B.4A.1b signal-safe CLI shutdown   DONE
+- Patch 08B.4B controlled multi-block reorg executor   DONE
+- Patch 08B.4C authenticated crash recovery   DONE
+- Patch 08B.4D.1 runtime stale-side pruning   DONE
+- Patch 08B.4D.2 work-aware side-pool admission / eviction   DONE
+- Patch 08B.4D.3 U4 retention / pruning   DONE
+- Patch 08B.4D.4 positive candidate-validation cache   DONE
+- Patch 08B.4D.5 immutable-only negative candidate cache   DONE
+- Patch 08B.4D.6 per-source validation budget   DONE
+- Patch 08B.4D.7 global validation budget   DONE
+- Patch 08B.4D.8 final regression / crash / adversarial / gate-OFF closeout   DONE
+- Patch 08B.4D.9 Step 1 activation-surface inventory   DONE
+- Patch 08B.4D.9 Step 2 executor/API deep dive   DONE
+- Patch 08B.4D.9A production gate + fail-stop shutdown plumbing   DONE / CLOSED
 
 Current canonical 9A source:
 
@@ -5493,24 +5493,24 @@ Current canonical 9A builds:
 
 Current activation state:
 
-- Production gate exists — YES
-- Gate default — OFF
-- Wrong magic — OFF
-- Exact magic may arm policy — YES
-- Canonical incoming-side automatic PREPARE/EXECUTE wiring — NO
-- Legacy `handleChainReorganization()` — FAIL-CLOSED
-- DEV-only manual reorg surfaces in PROD — ABSENT
-- Host runtime/recovery gates after tests — OFF
-- Mempool resurrection after reorg — DEFERRED
+- Production gate exists   YES
+- Gate default   OFF
+- Wrong magic   OFF
+- Exact magic may arm policy   YES
+- Canonical incoming-side automatic PREPARE/EXECUTE wiring   NO
+- Legacy `handleChainReorganization()`   FAIL-CLOSED
+- DEV-only manual reorg surfaces in PROD   ABSENT
+- Host runtime/recovery gates after tests   OFF
+- Mempool resurrection after reorg   DEFERRED
 
 Current development stage:
 
-- **Patch 16A.0 confirmed-state-only token indexing — CURRENT BLOCKER**
-- **Unconfirmed token-state containment runtime proof — NEXT AFTER 16A.0 DRY RUN/APPLY**
-- **Token-U4 issuance + transfer proofs — required immediately afterward**
-- **08B.4D.9B corrected v1a — paused until those token gates close**
-- **08B.4D.9B shadow mode — required before live automatic execution**
-- **08B.4D.9C startup reconciliation — pending**
+- **Patch 16A.0 confirmed-state-only token indexing   CURRENT BLOCKER**
+- **Unconfirmed token-state containment runtime proof   NEXT AFTER 16A.0 DRY RUN/APPLY**
+- **Token-U4 issuance + transfer proofs   required immediately afterward**
+- **08B.4D.9B corrected v1a   paused until those token gates close**
+- **08B.4D.9B shadow mode   required before live automatic execution**
+- **08B.4D.9C startup reconciliation   pending**
 
 Token review disposition:
 
@@ -5557,7 +5557,7 @@ I would describe the current state as **protocol/engine largely done, product de
 | CORS/local-network path | ✅ |
 | Manual browser pairing | ✅ |
 | Real Live Board rendered | ✅ |
-| Agent publicly exposed | **NO — correct** |
+| Agent publicly exposed | **NO   correct** |
 | Live funding from website | 🔒 Deliberately disabled |
 | `board/take` | 🔒 Deliberately disabled |
 | offer create/import | 🔒 Deliberately disabled |
